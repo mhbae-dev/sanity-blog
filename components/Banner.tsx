@@ -4,7 +4,7 @@ const Banner = () => {
       <div className="space-y-5 px-10">
         <h1 className="max-w-xl font-serif text-6xl">
           <span className="underline decoration-black decoration-4">
-            Learning Journal
+            Journal
           </span>{' '}
           of my software development journey.
         </h1>
