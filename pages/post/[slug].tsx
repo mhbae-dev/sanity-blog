@@ -95,7 +95,9 @@ function Post({ post }: Props) {
       <hr className="my-5 mx-auto max-w-lg border border-yellow-500" />
       {submitted ? (
         <div className="my-10 mx-auto flex max-w-2xl flex-col bg-yellow-500 p-10 text-white">
-          <h3 className="text-3xl font-bold">Thank you for submitting your comment!</h3>
+          <h3 className="text-3xl font-bold">
+            Thank you for submitting your comment!
+          </h3>
           <p>Once the comment has been approved, it will appear below</p>
         </div>
       ) : (
@@ -162,6 +164,17 @@ function Post({ post }: Props) {
           />
         </form>
       )}
+
+      <div className="flex flex-col p-10 my-10 max-w-2xl mx-auto shadow-yellow-500 shadow space-y-2">
+        <h3 className="text-4xl">Comments</h3>
+        <hr className="pb-2"/>
+
+        {post.comments.map(comment => (
+          <div key={comment._id}>
+            <p><span className="text-yellow-500">{comment.name}</span>: {comment.comment}</p>
+          </div>
+        ))}
+      </div>
     </main>
   )
 }
