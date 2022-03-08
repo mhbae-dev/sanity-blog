@@ -2,6 +2,7 @@ import { GetStaticProps } from 'next'
 import Header from '../../components/Header'
 import { sanityClient, urlFor } from '../../sanity'
 import { Post } from '../../typings'
+import PortableText from 'react-portable-text'
 
 interface Props {
   post: Post
@@ -34,7 +35,64 @@ function Post({ post }: Props) {
             Published at {new Date(post._createdAt).toLocaleString()}
           </p>
         </div>
+
+        <div className="mt-10">
+          <PortableText
+            className=""
+            content={post.body}
+            dataset={process.env.NEXT_PUBLIC_SANITY_DATASET!}
+            projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!}
+            serializers={{
+              h1: (props: any) => (
+                <h1 className="my-5 text-2xl font-bold" {...props} />
+              ),
+              h2: (props: any) => (
+                <h1 className="my-5 text-xl font-bold" {...props} />
+              ),
+              li: ({ children }: any) => (
+                <li className="ml-4 list-disc">{children}</li>
+              ),
+              link: ({ href, children }: any) => (
+                <a href={href} className="text-blue-500 hover:underline">
+                  {children}
+                </a>
+              ),
+            }}
+          />
+        </div>
       </article>
+
+      <hr className="my-5 mx-auto max-w-lg border border-yellow-500" />
+
+      <form className="mx-auto mb-10 flex max-w-2xl flex-col p-5">
+        <h3 className="text-sm text-yellow-500">Enjoyed this article?</h3>
+        <h4 className="text-3xl font-bold">Leave a comment below!</h4>
+        <hr className="mt-2 py-3" />
+        <label className="mb-5 block">
+          <span className="text-gray-700">Name</span>
+          <input
+            className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none ring-yellow-500 focus:ring"
+            placeholder="John Doe"
+            type="text"
+          />
+        </label>
+        <label className="mb-5 block">
+          <span className="text-gray-700">Email</span>
+          <input
+            className="form-input mt-1 block w-full rounded border py-2 px-3 shadow outline-none ring-yellow-500 focus:ring"
+            placeholder="John Doe"
+            type="text"
+          />
+        </label>
+        <label className="mb-5 block">
+          <span className="text-gray-700">Comment</span>
+          <textarea
+            className="form-textarea mt-1 block w-full rounded border py-2 px-3 shadow outline-none ring-yellow-500 focus:ring"
+            placeholder="John Doe"
+            rows={8}
+          />
+        </label>
+      </form>
     </main>
   )
 }
